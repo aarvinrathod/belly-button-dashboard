@@ -1,4 +1,4 @@
-d3.json("samples.json").then((data) => {
+d3.json("data/samples.json").then((data) => {
   // console.log(data);
   var names_list = data.names;
   // console.log(names_list);
@@ -11,7 +11,7 @@ d3.json("samples.json").then((data) => {
 });
 
 function chart_data(name_selection) {
-  d3.json('samples.json').then((data) => {
+  d3.json('data/samples.json').then((data) => {
     let samples_data = data.samples.filter((element) => element["id"]==name_selection);
     // console.log(samples_data);
     let sample_values = samples_data[0].sample_values;
