@@ -41,12 +41,12 @@ function chart_data(name_selection) {
     // console.log(demographic_data[0]);
     let keys = Object.keys(demographic_data[0]);
     // console.log(keys)
-    let values = Object.values(demographic_data[0]);
-    // console.log(values)
+    let value_pairs = Object.values(demographic_data[0]);
+    // console.log(value_pairs)
     let table_data = {
-      "arrays": [keys, values]
+      "arrays": [keys, value_pairs]
     };
-    // console.log(table_data)
+    console.log(table_data.arrays)
     
     demoTable(table_data);
   }
@@ -78,9 +78,11 @@ function demoTable(table_data) {
   let values = table_data.arrays;
   let demoData = [{
     type : "table",
+    columnwidth: [20,60],
     header : {
       values : [["<b>Particulars</b>"],["<b>Values</b>"]],
       align: "center",
+      height: 200,
       line: {color:"black"},
       fill:{color:"grey"}
     },
@@ -89,7 +91,7 @@ function demoTable(table_data) {
       align : "center"
     }
   }];
-  console.log(values)
+  // console.log(values)
   Plotly.newPlot('sample-metadata', demoData)
 };
 
