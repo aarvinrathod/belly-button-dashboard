@@ -12,8 +12,6 @@ d3.json("samples.json").then((data) => {
 
 function chart_data(name_selection) {
   d3.json('samples.json').then((data) => {
-    let demographic_data = data.metadata.filter((element) => element["id"]==name_selection);
-    // console.log(demographic_data);
     let samples_data = data.samples.filter((element) => element["id"]==name_selection);
     // console.log(samples_data);
     let sample_values = samples_data[0].sample_values;
@@ -34,6 +32,25 @@ function chart_data(name_selection) {
     };
 
     barChart(barChartData);
+
+    bubbleChart(barChartData);
+
+    // _____________________________________________________________________ //
+    
+    let demographic_data = data.metadata.filter((element) => element["id"]==name_selection);
+    // console.log(demographic_data[0]);
+    let keys = Object.keys(demographic_data[0]);
+    // console.log(keys)
+    let values = Object.values(demographic_data[0]);
+    // console.log(values)
+    let table_data = [keys, values];
+    // console.log(table_data)
+    let demoData = [{
+          type : "table",
+          values : table_data
+        }];
+
+    demoTable(demoData);
   }
 )};
 
@@ -58,6 +75,29 @@ function barChart(barChartData) {
 
    Plotly.newPlot('bar', trace, layout, config)
 };
+
+function demoTable(demoData) {
+  table_data = demoData;
+  // console.log(table_data)
+  Plotly.newPlot('sample-metadata', table_data)
+};
+
+function bubbleChart(barChartData) {
+  let trace1 = {
+    x: barChartData.ids,
+    y: barChartData.values,
+    text: barChartData.hovertext,
+    mode: 'markers',
+    marker: {size: barChartData.values, color: barChartData.ids}
+  };
+  let bubbleChartData = [trace1];
+  let layout = {
+    title: "ID vs Sample Values",
+    showlegend: false,
+  };
+  Plotly.newPlot('bubble', bubbleChartData, layout)
+}
+
 
 d3.selectAll("#selDataset").on("change", getData);
 
