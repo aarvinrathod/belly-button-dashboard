@@ -43,14 +43,12 @@ function chart_data(name_selection) {
     // console.log(keys)
     let values = Object.values(demographic_data[0]);
     // console.log(values)
-    let table_data = [keys, values];
+    let table_data = {
+      "arrays": [keys, values]
+    };
     // console.log(table_data)
-    let demoData = [{
-          type : "table",
-          values : table_data
-        }];
-
-    demoTable(demoData);
+    
+    demoTable(table_data);
   }
 )};
 
@@ -76,10 +74,23 @@ function barChart(barChartData) {
    Plotly.newPlot('bar', trace, layout, config)
 };
 
-function demoTable(demoData) {
-  table_data = demoData;
-  // console.log(table_data)
-  Plotly.newPlot('sample-metadata', table_data)
+function demoTable(table_data) {
+  let values = table_data.arrays;
+  let demoData = [{
+    type : "table",
+    header : {
+      values : [["<b>Particulars</b>"],["<b>Values</b>"]],
+      align: "center",
+      line: {color:"black"},
+      fill:{color:"grey"}
+    },
+    cells: {
+      values: values,
+      align : "center"
+    }
+  }];
+  console.log(values)
+  Plotly.newPlot('sample-metadata', demoData)
 };
 
 function bubbleChart(barChartData) {
