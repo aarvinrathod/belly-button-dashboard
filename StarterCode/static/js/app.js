@@ -1,5 +1,5 @@
 d3.json("data/samples.json").then((data) => {
-  // console.log(data);
+  console.log(data);
   var names_list = data.names;
   // console.log(names_list);
   let dropdownMenu = d3.select("#selDataset");
@@ -46,7 +46,7 @@ function chart_data(name_selection) {
     let table_data = {
       "arrays": [keys, value_pairs]
     };
-    console.log(table_data.arrays)
+    // console.log(table_data.arrays)
     
     demoTable(table_data);
   }
@@ -78,13 +78,13 @@ function demoTable(table_data) {
   let values = table_data.arrays;
   let demoData = [{
     type : "table",
-    columnwidth: [20,60],
+    columnwidth: [10,10],
     header : {
       values : [["<b>Particulars</b>"],["<b>Values</b>"]],
       align: "center",
-      height: 200,
+      height: 100,
       line: {color:"black"},
-      fill:{color:"grey"}
+      fill:{color:"lightblue"}
     },
     cells: {
       values: values,
@@ -96,12 +96,22 @@ function demoTable(table_data) {
 };
 
 function bubbleChart(barChartData) {
+
+  let random_color = [];
+
+  for (let i=0; i<barChartData.ids.length; i++) {
+    let randomColor = Math.floor(Math.random()*16777215).toString(16);
+    random_color.push(randomColor);
+  };
+  
+  // console.log(random_color);
+  
   let trace1 = {
     x: barChartData.ids,
     y: barChartData.values,
     text: barChartData.hovertext,
     mode: 'markers',
-    marker: {size: barChartData.values, color: barChartData.ids}
+    marker: {size: barChartData.values, color: random_color}
   };
   let bubbleChartData = [trace1];
   let layout = {
